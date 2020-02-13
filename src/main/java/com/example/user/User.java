@@ -27,6 +27,13 @@ public class User {
     public User() {
     }
 
+    public User(Long id, String firstName, String lastName, String pesel) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.pesel = pesel;
+    }
+
     public Long getId() {
         return id;
     }
@@ -70,17 +77,26 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof User)) return false;
+
         User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(pesel, user.pesel) &&
-                Objects.equals(assignments, user.assignments);
+
+        if (getId() != null ? !getId().equals(user.getId()) : user.getId() != null) return false;
+        if (getFirstName() != null ? !getFirstName().equals(user.getFirstName()) : user.getFirstName() != null)
+            return false;
+        if (getLastName() != null ? !getLastName().equals(user.getLastName()) : user.getLastName() != null)
+            return false;
+        if (getPesel() != null ? !getPesel().equals(user.getPesel()) : user.getPesel() != null) return false;
+        return getAssignments() != null ? getAssignments().equals(user.getAssignments()) : user.getAssignments() == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, pesel, assignments);
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
+        result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
+        result = 31 * result + (getPesel() != null ? getPesel().hashCode() : 0);
+        result = 31 * result + (getAssignments() != null ? getAssignments().hashCode() : 0);
+        return result;
     }
 }

@@ -1,5 +1,6 @@
-package com.example.asset;
+package com.example.repositories;
 
+import com.example.asset.Asset;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

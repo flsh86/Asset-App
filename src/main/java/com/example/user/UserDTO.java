@@ -7,7 +7,13 @@ public class UserDTO {
     private String pesel;
 
     public UserDTO() {
+    }
 
+    public UserDTO(Long id, String firstName, String lastName, String pesel) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.pesel = pesel;
     }
 
     public Long getId() {
@@ -40,5 +46,29 @@ public class UserDTO {
 
     public void setPesel(String pesel) {
         this.pesel = pesel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserDTO)) return false;
+
+        UserDTO userDTO = (UserDTO) o;
+
+        if (getId() != null ? !getId().equals(userDTO.getId()) : userDTO.getId() != null) return false;
+        if (getFirstName() != null ? !getFirstName().equals(userDTO.getFirstName()) : userDTO.getFirstName() != null)
+            return false;
+        if (getLastName() != null ? !getLastName().equals(userDTO.getLastName()) : userDTO.getLastName() != null)
+            return false;
+        return getPesel() != null ? getPesel().equals(userDTO.getPesel()) : userDTO.getPesel() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
+        result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
+        result = 31 * result + (getPesel() != null ? getPesel().hashCode() : 0);
+        return result;
     }
 }

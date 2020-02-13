@@ -1,8 +1,10 @@
-package com.example.asset;
+package com.example.rest;
 
-import com.example.assignment.AssetAssignmentDTO;
+import com.example.asset.AssetAssignmentDTO;
+import com.example.asset.AssetDTO;
 import com.example.exception.IllegalIdException;
 import com.example.exception.SerialNumberConflictException;
+import com.example.services.AssetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,13 +47,6 @@ public class AssetResource {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AssetDTO> save(@RequestBody AssetDTO assetDTO) {
-        if(assetDTO.getId() != null) {
-            throw new IllegalIdException();
-        }
-
-        if(assetService.validSerialNumber(assetDTO)) {
-            throw new SerialNumberConflictException();
-        }
         assetService.save(assetDTO);
 
         URI location = ServletUriComponentsBuilder
@@ -75,15 +70,7 @@ public class AssetResource {
 
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AssetDTO> update(@PathVariable Long id, @RequestBody AssetDTO assetDTO) {
-        if(assetDTO.getId() == null || !assetDTO.getId().equals(id)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aktualizowany obiekt powinien mieć id zgodne z id ścieżki zasobu");
-        }
-
-        if(assetService.validSerialNumber(assetDTO)) {
-            throw new SerialNumberConflictException();
-        }
-
-        assetService.save(assetDTO);
+        assetService.update(id, assetDTO);
         return ResponseEntity.ok(assetDTO);
     }
 

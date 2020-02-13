@@ -57,16 +57,23 @@ public class Category {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Category)) return false;
+
         Category category = (Category) o;
-        return Objects.equals(id, category.id) &&
-                Objects.equals(name, category.name) &&
-                Objects.equals(description, category.description) &&
-                Objects.equals(assets, category.assets);
+
+        if (getId() != null ? !getId().equals(category.getId()) : category.getId() != null) return false;
+        if (getName() != null ? !getName().equals(category.getName()) : category.getName() != null) return false;
+        if (getDescription() != null ? !getDescription().equals(category.getDescription()) : category.getDescription() != null)
+            return false;
+        return getAssets() != null ? getAssets().equals(category.getAssets()) : category.getAssets() == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, assets);
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+        result = 31 * result + (getAssets() != null ? getAssets().hashCode() : 0);
+        return result;
     }
 }

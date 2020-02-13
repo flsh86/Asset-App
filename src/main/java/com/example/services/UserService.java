@@ -1,7 +1,9 @@
-package com.example.user;
+package com.example.services;
 
 import com.example.assignment.Assignment;
 import com.example.exception.PeselConflictException;
+import com.example.repositories.UserRepository;
+import com.example.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

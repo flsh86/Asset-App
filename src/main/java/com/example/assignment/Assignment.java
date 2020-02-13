@@ -29,6 +29,12 @@ public class Assignment {
     public Assignment() {
     }
 
+    public Assignment(Long id, LocalDateTime start, LocalDateTime end) {
+        this.id = id;
+        this.start = start;
+        this.end = end;
+    }
+
     public Long getId() {
         return id;
     }
@@ -72,17 +78,24 @@ public class Assignment {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Assignment)) return false;
+
         Assignment that = (Assignment) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(start, that.start) &&
-                Objects.equals(end, that.end) &&
-                Objects.equals(asset, that.asset) &&
-                Objects.equals(user, that.user);
+
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
+        if (getStart() != null ? !getStart().equals(that.getStart()) : that.getStart() != null) return false;
+        if (getEnd() != null ? !getEnd().equals(that.getEnd()) : that.getEnd() != null) return false;
+        if (getAsset() != null ? !getAsset().equals(that.getAsset()) : that.getAsset() != null) return false;
+        return getUser() != null ? getUser().equals(that.getUser()) : that.getUser() == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, start, end, asset, user);
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getStart() != null ? getStart().hashCode() : 0);
+        result = 31 * result + (getEnd() != null ? getEnd().hashCode() : 0);
+        result = 31 * result + (getAsset() != null ? getAsset().hashCode() : 0);
+        result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
+        return result;
     }
 }

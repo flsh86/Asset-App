@@ -12,6 +12,14 @@ public class AssignmentDTO {
     public AssignmentDTO() {
     }
 
+    public AssignmentDTO(Long id, LocalDateTime start, LocalDateTime end, Long userId, Long assetId) {
+        this.id = id;
+        this.start = start;
+        this.end = end;
+        this.userId = userId;
+        this.assetId = assetId;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -50,5 +58,29 @@ public class AssignmentDTO {
 
     public void setEnd(LocalDateTime end) {
         this.end = end;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AssignmentDTO)) return false;
+
+        AssignmentDTO that = (AssignmentDTO) o;
+
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
+        if (getStart() != null ? !getStart().equals(that.getStart()) : that.getStart() != null) return false;
+        if (getEnd() != null ? !getEnd().equals(that.getEnd()) : that.getEnd() != null) return false;
+        if (getUserId() != null ? !getUserId().equals(that.getUserId()) : that.getUserId() != null) return false;
+        return getAssetId() != null ? getAssetId().equals(that.getAssetId()) : that.getAssetId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getStart() != null ? getStart().hashCode() : 0);
+        result = 31 * result + (getEnd() != null ? getEnd().hashCode() : 0);
+        result = 31 * result + (getUserId() != null ? getUserId().hashCode() : 0);
+        result = 31 * result + (getAssetId() != null ? getAssetId().hashCode() : 0);
+        return result;
     }
 }

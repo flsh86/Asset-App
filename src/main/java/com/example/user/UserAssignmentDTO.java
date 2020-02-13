@@ -13,6 +13,15 @@ public class UserAssignmentDTO {
     public UserAssignmentDTO() {
     }
 
+    public UserAssignmentDTO(Long id, LocalDateTime start, LocalDateTime end, Long assetId, String assetName, String assetSerialNumber) {
+        this.id = id;
+        this.start = start;
+        this.end = end;
+        this.assetId = assetId;
+        this.assetName = assetName;
+        this.assetSerialNumber = assetSerialNumber;
+    }
+
     public Long getId() {
         return id;
     }
@@ -59,5 +68,32 @@ public class UserAssignmentDTO {
 
     public void setAssetSerialNumber(String assetSerialNumber) {
         this.assetSerialNumber = assetSerialNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserAssignmentDTO)) return false;
+
+        UserAssignmentDTO that = (UserAssignmentDTO) o;
+
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
+        if (getStart() != null ? !getStart().equals(that.getStart()) : that.getStart() != null) return false;
+        if (getEnd() != null ? !getEnd().equals(that.getEnd()) : that.getEnd() != null) return false;
+        if (getAssetId() != null ? !getAssetId().equals(that.getAssetId()) : that.getAssetId() != null) return false;
+        if (getAssetName() != null ? !getAssetName().equals(that.getAssetName()) : that.getAssetName() != null)
+            return false;
+        return getAssetSerialNumber() != null ? getAssetSerialNumber().equals(that.getAssetSerialNumber()) : that.getAssetSerialNumber() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getStart() != null ? getStart().hashCode() : 0);
+        result = 31 * result + (getEnd() != null ? getEnd().hashCode() : 0);
+        result = 31 * result + (getAssetId() != null ? getAssetId().hashCode() : 0);
+        result = 31 * result + (getAssetName() != null ? getAssetName().hashCode() : 0);
+        result = 31 * result + (getAssetSerialNumber() != null ? getAssetSerialNumber().hashCode() : 0);
+        return result;
     }
 }
