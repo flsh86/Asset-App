@@ -2,7 +2,6 @@ package com.example.assignment;
 
 import com.example.asset.Asset;
 import com.example.repositories.AssetRepository;
-import com.example.exception.NotFoundException;
 import com.example.user.User;
 import com.example.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ public class AssignmentMapper {
         );
     }
 
-    public Assignment toEntity(AssignmentDTO dto) throws NotFoundException {
+    public Assignment toEntity(AssignmentDTO dto){
         Assignment entity = new Assignment(
                 dto.getId(),
                 dto.getStart(),

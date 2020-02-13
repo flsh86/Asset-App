@@ -1,8 +1,6 @@
 package com.example.services;
 
 import com.example.asset.*;
-import com.example.exception.IllegalIdException;
-import com.example.exception.SerialNumberConflictException;
 import com.example.repositories.AssetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +35,7 @@ public class AssetService {
                 .map(assetMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
 
     public List<AssetDTO> findAllByNameContainingIgnoreCaseOrSerialNumberContainingIgnoreCase(String name, String serialNumber) {
         List<Asset> assets = assetRepository.findAllByNameContainingIgnoreCaseOrSerialNumberContainingIgnoreCase(name, serialNumber);
@@ -79,15 +78,24 @@ public class AssetService {
 
     public AssetDTO findById(Long id) {
         Optional<Asset> asset = assetRepository.findById(id);
-        return asset.map(value -> assetMapper.toDTO(value)).orElse(null);
+        if(asset.isPresent()) {
+            return asset.map(value -> assetMapper.toDTO(value)).get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Asset with this id was not found");
+        }
     }
 
     public List<AssetAssignmentDTO> getAssetAssignment(Long id) {
         Optional<Asset> asset = assetRepository.findById(id);
+
+        if(asset.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
         return asset.map(value -> value.getAssignments()
                 .stream()
                 .map(AssetAssignmentMapper::toDTO)
-                .collect(Collectors.toList())).orElse(null);
+                .collect(Collectors.toList())).get();
     }
 
 

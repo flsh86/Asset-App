@@ -25,11 +25,6 @@ public class CategoryResource {
     @GetMapping(value = "/names", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<String>> findAll() {
         Set<String> categories = categoryService.findAll();
-
-        if(categories == null || categories.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-
         return ResponseEntity.ok(categories);
     }
 }
