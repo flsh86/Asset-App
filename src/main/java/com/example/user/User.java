@@ -1,6 +1,7 @@
 package com.example.user;
 
 import com.example.assignment.Assignment;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "first_name")
@@ -21,13 +22,16 @@ public class User {
     @Column(unique = true, length = 11)
     private String pesel;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<Assignment> assignments = new ArrayList<>();
 
     public User() {
     }
 
     public User(Long id, String firstName, String lastName, String pesel) {
+        if(id < 0) {
+            throw new IllegalArgumentException();
+        }
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -39,6 +43,9 @@ public class User {
     }
 
     public void setId(Long id) {
+        if(id < 0) {
+            throw new IllegalArgumentException();
+        }
         this.id = id;
     }
 
@@ -98,5 +105,15 @@ public class User {
         result = 31 * result + (getPesel() != null ? getPesel().hashCode() : 0);
         result = 31 * result + (getAssignments() != null ? getAssignments().hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", pesel='" + pesel + '\'' +
+                '}';
     }
 }

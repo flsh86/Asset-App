@@ -69,6 +69,15 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
+    public void delete(Long id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if(user.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with this id was not found");
+        } else {
+            userRepository.delete(user.get());
+        }
+    }
 
     public List<UserAssignmentDTO> getUserAssignments(Long id) {
         Optional<User> user = userRepository.findById(id);

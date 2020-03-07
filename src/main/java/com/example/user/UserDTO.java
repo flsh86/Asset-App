@@ -10,6 +10,9 @@ public class UserDTO {
     }
 
     public UserDTO(Long id, String firstName, String lastName, String pesel) {
+        if(id < 0) {
+            throw new IllegalArgumentException();
+        }
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -21,6 +24,9 @@ public class UserDTO {
     }
 
     public void setId(Long id) {
+        if(id < 0) {
+            throw new IllegalArgumentException();
+        }
         this.id = id;
     }
 

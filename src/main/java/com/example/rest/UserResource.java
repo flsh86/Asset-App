@@ -64,4 +64,10 @@ public class UserResource {
         return ResponseEntity.ok(list);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        userService.delete(id);
+        return ResponseEntity.ok("User has been removed");
+    }
+
 }

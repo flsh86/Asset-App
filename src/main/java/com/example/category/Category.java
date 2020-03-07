@@ -8,7 +8,7 @@ import java.util.*;
 @Entity
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true, name = "category_name")
@@ -20,6 +20,12 @@ public class Category {
     private Set<Asset> assets = new HashSet<>();
 
     public Category() {
+    }
+
+    public Category(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
     }
 
     public Long getId() {
