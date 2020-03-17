@@ -16,3 +16,6 @@ insert into assignment(id, start_time, end_time, asset_id, user_id) VALUES
 (1, '2017-10-08 15:00:00', '2018-10-08 15:00:00', 1, 1),
 (2, '2018-10-09 12:00:00', null, 2, 1),
 (3, '2018-10-10 16:00:00', null, 3, 2);
+
+insert into image(id, path) VALUES
+(1, 'src/main/resources/static/javaImage.JPG')
