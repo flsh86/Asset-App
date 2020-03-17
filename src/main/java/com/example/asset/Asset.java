@@ -12,13 +12,14 @@ import java.util.Objects;
 @Table(name = "assets")
 public class Asset {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, name = "asset_name")
     private String name;
+
     @Column(length = 2048)
     private String description;
+
     @Column(nullable = false, unique = true, name = "serial_number")
     private String serialNumber;
 
@@ -33,6 +34,10 @@ public class Asset {
     }
 
     public Asset(Long id, String name, String description, String serialNumber) {
+        if(id < 0) {
+            throw new IllegalArgumentException();
+        }
+
         this.id = id;
         this.name = name;
         this.description = description;
@@ -44,6 +49,10 @@ public class Asset {
     }
 
     public void setId(Long id) {
+        if(id < 0) {
+            throw new IllegalArgumentException();
+        }
+
         this.id = id;
     }
 

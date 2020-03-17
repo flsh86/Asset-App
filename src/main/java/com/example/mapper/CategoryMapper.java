@@ -1,6 +1,10 @@
-package com.example.category;
+package com.example.mapper;
+
+import com.example.category.Category;
+import com.example.category.CategoryDTO;
 
 public class CategoryMapper {
+
     public static CategoryDTO toDTO(Category entity) {
         return new CategoryDTO(
                 entity.getId(),

@@ -23,6 +23,9 @@ public class Category {
     }
 
     public Category(Long id, String name, String description) {
+        if(id < 0) {
+            throw new IllegalArgumentException();
+        }
         this.id = id;
         this.name = name;
         this.description = description;
@@ -33,6 +36,9 @@ public class Category {
     }
 
     public void setId(Long id) {
+        if(id < 0) {
+            throw new IllegalArgumentException();
+        }
         this.id = id;
     }
 

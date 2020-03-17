@@ -1,9 +1,11 @@
-package com.example.user;
+package com.example.mapper;
 
 import com.example.asset.Asset;
 import com.example.assignment.Assignment;
+import com.example.user.UserAssignmentDTO;
 
 public class UserAssignmentMapper {
+
     public static UserAssignmentDTO toDTO(Assignment assignment) {
         Asset asset = assignment.getAsset();
 
@@ -16,5 +18,6 @@ public class UserAssignmentMapper {
                 asset.getSerialNumber()
         );
     }
+
 
 }

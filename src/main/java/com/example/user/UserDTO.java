@@ -77,4 +77,14 @@ public class UserDTO {
         result = 31 * result + (getPesel() != null ? getPesel().hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", pesel='" + pesel + '\'' +
+                '}';
+    }
 }

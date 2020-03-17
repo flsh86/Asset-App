@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -178,5 +179,23 @@ public class UserRepositoryTest {
         }
     }
 
+    @Test
+    void deletedUserShouldNotBePresentInRepository() {
+        //Given
+        User createdUser = new User(99999L, "TestName", "TestLastName", "TestPesel");
+        testEntityManager.persistAndFlush(createdUser);
+
+        //When
+        userRepository.delete(createdUser);
+
+        //Then
+        Optional<User> deletedUser = userRepository.findById(createdUser.getId());
+
+        if(deletedUser.isPresent()) {
+            assert false;
+        } else {
+            assertThrows(NoSuchElementException.class, deletedUser::get);
+        }
+    }
 
 }

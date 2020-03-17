@@ -1,6 +1,8 @@
 package com.example.services;
 
 import com.example.assignment.Assignment;
+import com.example.mapper.UserAssignmentMapper;
+import com.example.mapper.UserMapper;
 import com.example.repositories.UserRepository;
 import com.example.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +60,7 @@ public class UserService {
     }
 
 
-    public void save(UserDTO userDTO) {
+    public User save(UserDTO userDTO) {
         Optional<User> user = userRepository.findByPesel(userDTO.getPesel());
 
         if(user.isPresent()) {
@@ -67,6 +69,7 @@ public class UserService {
 
         User userEntity = UserMapper.toEntity(userDTO);
         userRepository.save(userEntity);
+        return userEntity;
     }
 
     public void delete(Long id) {
@@ -74,9 +77,9 @@ public class UserService {
 
         if(user.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with this id was not found");
-        } else {
-            userRepository.delete(user.get());
         }
+
+        userRepository.delete(user.get());
     }
 
     public List<UserAssignmentDTO> getUserAssignments(Long id) {

@@ -1,6 +1,8 @@
-package com.example.assignment;
+package com.example.mapper;
 
 import com.example.asset.Asset;
+import com.example.assignment.Assignment;
+import com.example.assignment.AssignmentDTO;
 import com.example.repositories.AssetRepository;
 import com.example.user.User;
 import com.example.repositories.UserRepository;

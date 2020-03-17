@@ -1,5 +1,7 @@
-package com.example.asset;
+package com.example.mapper;
 
+import com.example.asset.Asset;
+import com.example.asset.AssetDTO;
 import com.example.category.Category;
 import com.example.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;

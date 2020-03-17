@@ -1,12 +1,11 @@
 package com.example.category;
 
-import com.example.user.UserDTO;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CategoryTest {
+public class CategoryDTOTest {
 
     @Test
     void creatingCategoryWithIdExceedingLimitShouldThrowAnException() {
@@ -15,12 +14,11 @@ public class CategoryTest {
         //When
         //Then
         assertAll(
-                () -> assertThrows(IllegalArgumentException.class, () -> new Category(exceed + 1, "TestName", "TestDescription")),
+                () -> assertThrows(IllegalArgumentException.class, () -> new CategoryDTO(exceed + 1, "TestName", "TestDescription")),
                 () -> assertThrows(IllegalArgumentException.class, () -> {
-                    Category category = new Category();
-                    category.setId(exceed + 1);
+                    CategoryDTO categoryDTO = new CategoryDTO();
+                    categoryDTO.setId(exceed + 1);
                 })
         );
     }
-
 }

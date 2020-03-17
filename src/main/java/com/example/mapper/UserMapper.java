@@ -1,4 +1,7 @@
-package com.example.user;
+package com.example.mapper;
+
+import com.example.user.User;
+import com.example.user.UserDTO;
 
 public class UserMapper {
 

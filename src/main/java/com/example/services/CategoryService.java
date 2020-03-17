@@ -2,7 +2,7 @@ package com.example.services;
 
 import com.example.category.Category;
 import com.example.category.CategoryDTO;
-import com.example.category.CategoryMapper;
+import com.example.mapper.CategoryMapper;
 import com.example.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -9,6 +9,9 @@ public class CategoryDTO {
     }
 
     public CategoryDTO(Long id, String name, String description) {
+        if(id < 0) {
+            throw new IllegalArgumentException();
+        }
         this.id = id;
         this.name = name;
         this.description = description;
@@ -19,6 +22,9 @@ public class CategoryDTO {
     }
 
     public void setId(Long id) {
+        if(id < 0) {
+            throw new IllegalArgumentException();
+        }
         this.id = id;
     }
 

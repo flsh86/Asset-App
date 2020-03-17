@@ -12,7 +12,11 @@ public class AssetDTO {
     }
 
     public AssetDTO(Long id, String name, String description, String serialNumber) {
+        if(id < 0) {
+            throw new IllegalArgumentException();
+        }
         this.id = id;
+
         this.name = name;
         this.description = description;
         this.serialNumber = serialNumber;
@@ -31,6 +35,9 @@ public class AssetDTO {
     }
 
     public void setId(Long id) {
+        if(id < 0) {
+            throw new IllegalArgumentException();
+        }
         this.id = id;
     }
 

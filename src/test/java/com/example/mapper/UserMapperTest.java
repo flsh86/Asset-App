@@ -1,5 +1,7 @@
-package com.example.user;
+package com.example.mapper;
 
+import com.example.user.User;
+import com.example.user.UserDTO;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -42,4 +44,5 @@ class UserMapperTest {
                 () -> assertThat(userDTO.getPesel(), equalTo(user.getPesel()))
         );
     }
+
 }

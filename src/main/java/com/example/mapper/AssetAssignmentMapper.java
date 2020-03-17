@@ -1,4 +1,4 @@
-package com.example.asset;
+package com.example.mapper;
 
 import com.example.asset.AssetAssignmentDTO;
 import com.example.assignment.Assignment;
