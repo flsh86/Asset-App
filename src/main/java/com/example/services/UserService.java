@@ -1,6 +1,9 @@
 package com.example.services;
 
 import com.example.assignment.Assignment;
+import com.example.img.Image;
+import com.example.img.ImageDTO;
+import com.example.img.ImageMapper;
 import com.example.mapper.UserAssignmentMapper;
 import com.example.mapper.UserMapper;
 import com.example.repositories.UserRepository;
@@ -106,11 +109,27 @@ public class UserService {
         }
 
         Optional<User> user = userRepository.findByPesel(userDTO.getPesel());
-        if(!user.isEmpty()) {
+        if(user.isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "User with this pesel already exist");
         }
 
         save(userDTO);
+    }
+
+    public ImageDTO getImage(Long id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if(user.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        Image image = user.get().getImage();
+
+        if(image == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return ImageMapper.toDTO(image);
     }
 
 }

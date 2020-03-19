@@ -1,5 +1,6 @@
 package com.example.img;
 
+import com.example.services.UserService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -18,15 +19,17 @@ import java.io.InputStream;
 @RequestMapping("/api/image")
 public class ImageResource {
     private ImageService imageService;
+    private UserService userService;
 
     @Autowired
-    public ImageResource(ImageService imageService) {
+    public ImageResource(ImageService imageService, UserService userService) {
         this.imageService = imageService;
+        this.userService = userService;
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     private ResponseEntity<InputStreamResource> getImage(@PathVariable  Long id) throws FileNotFoundException {
-        ImageDTO imageDTO = imageService.findById(id);
+        ImageDTO imageDTO = userService.getImage(id);
         InputStream inputStream = new FileInputStream(imageDTO.getPath());
         return ResponseEntity.ok().body(new InputStreamResource(inputStream));
     }

@@ -33,19 +33,4 @@ import static org.mockito.Mockito.when;
 
 public class UserTest {
 
-    @Test
-    void creatingUserWithIdExceedingLimitShouldThrowAnException() {
-        //Given
-        long exceed = Long.MAX_VALUE;
-        //When
-        //Then
-        assertAll(
-                () -> assertThrows(IllegalArgumentException.class, () -> new User(exceed + 1, "Test", "Test", "Test")),
-                () -> assertThrows(IllegalArgumentException.class, () -> {
-                    User user = new User();
-                    user.setId(exceed + 1);
-                })
-        );
-    }
-
 }

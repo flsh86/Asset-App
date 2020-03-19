@@ -1,6 +1,7 @@
 package com.example.user;
 
 import com.example.assignment.Assignment;
+import com.example.img.Image;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -22,16 +23,16 @@ public class User {
     @Column(unique = true, length = 11)
     private String pesel;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "user")
     private List<Assignment> assignments = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user")
+    private Image image;
 
     public User() {
     }
 
     public User(Long id, String firstName, String lastName, String pesel) {
-        if(id < 0) {
-            throw new IllegalArgumentException();
-        }
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,9 +44,6 @@ public class User {
     }
 
     public void setId(Long id) {
-        if(id < 0) {
-            throw new IllegalArgumentException();
-        }
         this.id = id;
     }
 
@@ -79,6 +77,14 @@ public class User {
 
     public void setAssignments(List<Assignment> assignments) {
         this.assignments = assignments;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     @Override

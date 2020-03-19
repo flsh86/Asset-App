@@ -34,10 +34,6 @@ public class Asset {
     }
 
     public Asset(Long id, String name, String description, String serialNumber) {
-        if(id < 0) {
-            throw new IllegalArgumentException();
-        }
-
         this.id = id;
         this.name = name;
         this.description = description;
@@ -49,10 +45,6 @@ public class Asset {
     }
 
     public void setId(Long id) {
-        if(id < 0) {
-            throw new IllegalArgumentException();
-        }
-
         this.id = id;
     }
 

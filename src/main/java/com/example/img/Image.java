@@ -1,8 +1,8 @@
 package com.example.img;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.example.user.User;
+
+import javax.persistence.*;
 
 @Entity
 public class Image {
@@ -11,6 +11,10 @@ public class Image {
 
     @Column(nullable = false, unique = true)
     private String path;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Image() {
     }

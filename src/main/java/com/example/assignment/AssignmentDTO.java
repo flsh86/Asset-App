@@ -13,35 +13,11 @@ public class AssignmentDTO {
     }
 
     public AssignmentDTO(Long id, LocalDateTime start, LocalDateTime end, Long userId, Long assetId) {
-        if(id < 0) {
-            throw new IllegalArgumentException();
-        }
         this.id = id;
-
-        if(start.isAfter(end)) {
-            this.start = null;
-        } else {
-            this.start = start;
-        }
-
-        if(end.isBefore(start)) {
-            this.end = null;
-        } else {
-            this.end = end;
-        }
-
-        if(userId < 0) {
-            throw new IllegalArgumentException();
-        } else {
-            this.userId = userId;
-        }
-
-        if(assetId < 0) {
-            throw new IllegalArgumentException();
-        } else {
-            this.assetId = assetId;
-        }
-
+        this.start = start;
+        this.end = end;
+        this.userId = userId;
+        this.assetId = assetId;
     }
 
     public Long getUserId() {
@@ -49,11 +25,7 @@ public class AssignmentDTO {
     }
 
     public void setUserId(Long userId) {
-        if(userId < 0) {
-            throw new IllegalArgumentException();
-        } else {
-            this.userId = userId;
-        }
+        this.userId = userId;
     }
 
     public Long getAssetId() {
@@ -61,11 +33,7 @@ public class AssignmentDTO {
     }
 
     public void setAssetId(Long assetId) {
-        if(assetId < 0) {
-            throw new IllegalArgumentException();
-        } else {
-            this.assetId = assetId;
-        }
+        this.assetId = assetId;
     }
 
     public Long getId() {
@@ -73,9 +41,6 @@ public class AssignmentDTO {
     }
 
     public void setId(Long id) {
-        if(id < 0) {
-            throw new IllegalArgumentException();
-        }
         this.id = id;
     }
 
@@ -84,11 +49,7 @@ public class AssignmentDTO {
     }
 
     public void setStart(LocalDateTime start) {
-        if(start.isAfter(end)) {
-            this.start = null;
-        } else {
-            this.start = start;
-        }
+        this.start = start;
     }
 
     public LocalDateTime getEnd() {
@@ -96,11 +57,7 @@ public class AssignmentDTO {
     }
 
     public void setEnd(LocalDateTime end) {
-        if(end.isBefore(start)) {
-            this.end = null;
-        } else {
-            this.end = end;
-        }
+        this.end = end;
     }
 
     @Override

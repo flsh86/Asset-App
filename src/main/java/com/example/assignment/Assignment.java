@@ -30,22 +30,9 @@ public class Assignment {
     }
 
     public Assignment(Long id, LocalDateTime start, LocalDateTime end) {
-        if(id < 0) {
-            throw new IllegalArgumentException();
-        }
         this.id = id;
-
-        if(start.isAfter(end)) {
-            this.start = null;
-        } else {
-            this.start = start;
-        }
-
-        if(end.isBefore(start)) {
-            this.end = null;
-        } else {
-            this.end = end;
-        }
+        this.start = start;
+        this.end = end;
     }
 
     public Long getId() {
@@ -53,9 +40,6 @@ public class Assignment {
     }
 
     public void setId(Long id) {
-        if(id < 0) {
-            throw new IllegalArgumentException();
-        }
         this.id = id;
     }
 
@@ -64,11 +48,7 @@ public class Assignment {
     }
 
     public void setStart(LocalDateTime start) {
-        if(start.isAfter(end)) {
-            this.start = null;
-        } else {
-            this.start = start;
-        }
+        this.start = start;
     }
 
     public LocalDateTime getEnd() {
@@ -76,11 +56,7 @@ public class Assignment {
     }
 
     public void setEnd(LocalDateTime end) {
-        if(end.isBefore(start)) {
-            this.end = null;
-        } else {
-            this.end = end;
-        }
+        this.end = end;
     }
 
     public Asset getAsset() {
