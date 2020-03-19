@@ -70,7 +70,7 @@ public class AssetService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Asset with this serialNumber already exist");
         }
 
-        if(assetDTO.getId() != null) {
+        if(assetDTO.getId() == null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Invalid id");
         }
 
@@ -102,17 +102,9 @@ public class AssetService {
 
 
     private boolean validSerialNumber(AssetDTO assetDTO) {
-        List<AssetDTO> list = findAll();
-
-        Predicate<String> serialNumberPredicate = (value -> assetDTO.getSerialNumber().equalsIgnoreCase(value));
-
-        if (list.isEmpty()) {
-            return false;
-        }
-
-        return list.stream()
+        return findAll().stream()
                 .map(AssetDTO::getSerialNumber)
-                .anyMatch(serialNumberPredicate);
+                .anyMatch(value -> assetDTO.getSerialNumber().equalsIgnoreCase(value));
     }
 
 }
