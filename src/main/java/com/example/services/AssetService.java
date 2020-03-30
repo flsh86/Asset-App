@@ -11,7 +11,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -80,11 +79,12 @@ public class AssetService {
 
     public AssetDTO findById(Long id) {
         Optional<Asset> asset = assetRepository.findById(id);
-        if(asset.isPresent()) {
-            return asset.map(value -> assetMapper.toDTO(value)).get();
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Asset with this id was not found");
-        }
+        return asset
+                .map(value -> assetMapper.toDTO(value))
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
+                );
+
     }
 
     public List<AssetAssignmentDTO> getAssetAssignment(Long id) {

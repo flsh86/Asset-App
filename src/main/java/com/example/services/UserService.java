@@ -54,13 +54,10 @@ public class UserService {
     }
 
     public UserDTO findById(Long id) {
-        Optional<User> user = userRepository.findById(id);
-
-        if(user.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-
-        return user.map(UserMapper::toDTO).orElse(null);
+        return userRepository.findById(id)
+                .map(UserMapper::toDTO)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Użytkownik o podanym id nie został znaleziony"));
     }
 
 
@@ -74,34 +71,34 @@ public class UserService {
         User userEntity = UserMapper.toEntity(userDTO);
         userRepository.save(userEntity);
         return userEntity;
+
     }
 
     public void delete(Long id) {
         Optional<User> user = userRepository.findById(id);
 
-        if(user.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with this id was not found");
-        }
-
-        userRepository.delete(user.get());
+        userRepository.delete(user
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User with this id was not found"))
+        );
     }
 
     public List<UserAssignmentDTO> getUserAssignments(Long id) {
         Optional<User> user = userRepository.findById(id);
 
-        if(user.isPresent()) {
-            List<Assignment> assignments = user.get().getAssignments();
+        List<Assignment> assignments = user
+                .map(User::getAssignments)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
+                );
 
-            if(assignments.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-            }
-
-            return assignments.stream()
-                    .map(UserAssignmentMapper::toDTO)
-                    .collect(Collectors.toList());
-        } else {
+        if(assignments.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+
+        return assignments.stream()
+                .map(UserAssignmentMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     public void updateUser(Long id, UserDTO userDTO) {
@@ -110,11 +107,13 @@ public class UserService {
         }
 
         Optional<User> user = userRepository.findByPesel(userDTO.getPesel());
-        if(user.isPresent()) {
+
+        if(user.isEmpty()) {
+            save(userDTO);
+        } else {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "User with this pesel already exist");
         }
 
-        save(userDTO);
     }
 
     public ImageDTO getImage(Long id) {

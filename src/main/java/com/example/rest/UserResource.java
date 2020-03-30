@@ -4,11 +4,9 @@ import com.example.services.UserService;
 import com.example.user.UserAssignmentDTO;
 import com.example.user.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
@@ -27,11 +25,10 @@ public class UserResource {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UserDTO>> findAll(@RequestParam(required = false) String lastName) {
-        if (lastName != null) {
-            List<UserDTO> lastNameList = this.userService.findByLastName(lastName);
-            return ResponseEntity.ok(lastNameList);
+        if(lastName != null) {
+            List<UserDTO> usersLastName = this.userService.findByLastName(lastName);
+            return ResponseEntity.ok(usersLastName);
         }
-
         List<UserDTO> users = this.userService.findAll();
         return ResponseEntity.ok(users);
     }

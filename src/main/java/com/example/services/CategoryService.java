@@ -51,11 +51,11 @@ public class CategoryService {
     public CategoryDTO findById(Long id) {
         Optional<Category> category = categoryRepository.findById(id);
 
-        if(category.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-
-        return category.map(CategoryMapper::toDTO).orElse(null);
+        return category
+                .map(CategoryMapper::toDTO)
+                .orElseThrow(
+                        () ->new ResponseStatusException(HttpStatus.NOT_FOUND)
+                );
     }
 
     public Set<CategoryDTO> findByNameContainsIgnoreCase(String name) {
@@ -88,11 +88,9 @@ public class CategoryService {
     public void delete(Long id) {
         Optional<Category> category = categoryRepository.findById(id);
 
-        if(category.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        } else {
-            categoryRepository.delete(category.get());
-        }
+        categoryRepository.delete(
+                category.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
+        );
     }
 
 }

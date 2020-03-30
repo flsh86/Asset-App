@@ -34,16 +34,12 @@ public class UserRepositoryTest {
         Optional<User> found = userRepository.findById(user.getId());
 
         //Then
-        if(found.isEmpty()) {
-            assert false;
-        } else {
             assertAll(
                     () -> assertThat(user.getId(), equalTo(found.get().getId())),
                     () -> assertThat(user.getFirstName(), equalTo(found.get().getFirstName())),
                     () -> assertThat(user.getLastName(), equalTo(found.get().getLastName())),
                     () -> assertThat(user.getPesel(), equalTo(found.get().getPesel()))
             );
-        }
     }
 
     @Test
